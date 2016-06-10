@@ -6,6 +6,6 @@ makepkg -si
 ## Run ##
 ```
 yaourt -Sy openscap
-oscap-sss --sudo .....
+oscap-ssh --sudo .....
 
 ```
