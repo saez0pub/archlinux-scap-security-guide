@@ -1,22 +1,23 @@
 # Maintainer: Jean Prat https://github.com/saez0pub/archlinux-scap-security-guide
-pkgname=scap-security-guide
-pkgver=0.1.29
+pkgname=content
+pkgver=0.1.43
 pkgrel=1
 pkgdesc="Baseline compliance content in SCAP formats http://www.open-scap.org/security-policies/scap-security-guide"
 arch=('any')
 url="http://www.open-scap.org/security-policies/scap-security-guide"
-license=('https://github.com/OpenSCAP/scap-security-guide/blob/master/LICENSE')
+license=('https://github.com/ComplianceAsCode/content/blob/master/LICENSE')
 depends=()
-makedepends=('make' 'git')
-source=("https://github.com/OpenSCAP/scap-security-guide/archive/v${pkgver}.zip")
-md5sums=('e7f70b3ec76fc50103d8971ea83e6835')
+makedepends=('cmake' 'make')
+source=("https://github.com/ComplianceAsCode/content/archive/v${pkgver}.tar.gz")
+md5sums=('e0862326d7512144cee91c6f893557e3')
 
 build() {
-	cd "$srcdir/${pkgname}-${pkgver}"
-	make
+	cd "$srcdir/${pkgname}-${pkgver}/build"
+	cmake ../
+	make -j4
 }
 
 package() {
-	cd "$srcdir/${pkgname}-${pkgver}"
-	make DESTDIR="$pkgdir/" SSG_VERSION_IS_GIT_SNAPSHOT=no install
+	cd "$srcdir/${pkgname}-${pkgver}/build"
+	make DESTDIR="$pkgdir/" install
 }
